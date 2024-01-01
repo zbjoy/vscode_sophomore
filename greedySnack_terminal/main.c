@@ -4,8 +4,8 @@
 #include <time.h>
 #include <conio.h>
 
-#define WIDE  60
-#define HIGH  20
+#define WIDE  90
+#define HIGH  40
 
 //隐藏控制台光标
 void hide_cur()
@@ -47,11 +47,11 @@ void init_snack(Snack* snack)
 
 void init_ui()
 {
-	for(int i = 0; i < HIGH; i++)
+	for(int i = 0; i <= HIGH; i++)
 	{
-		for(int j = 0; j < WIDE; j++)
+		for(int j = 0; j <= WIDE; j++)
 		{
-			if(i == HIGH - 1 || j == WIDE - 1)
+			if(i == HIGH  || j == WIDE)
 			{
 				printf("+");
 			}
@@ -175,17 +175,17 @@ int game_end(Snack* snack)
 
 void game_start(Snack* snack)
 {
-	while(snack->body[0].x > 0 && snack->body[0].y > 0 && snack->body[0].x < WIDE && snack->body[0].y < HIGH)
+	while(snack->body[0].x >= 0 && snack->body[0].y >= 0 && snack->body[0].x < WIDE && snack->body[0].y < HIGH)
 	{
-		control_snake(snack);
 		show_snack(snack);
+		control_snake(snack);
 		move_snack(snack);
 		snack_eat(snack);
 		if(game_end(snack))
 		{
 			break;
 		}
-		Sleep(150);
+		Sleep(10);
 	}
 }
 
