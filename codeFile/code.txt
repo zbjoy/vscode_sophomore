@@ -1,0 +1,10 @@
+#zhangsan
+personId:zhangsan
+#..
+personAge:18
+#xna
+personGrade:100
+
+.kg
+dgsd
+gesdf
