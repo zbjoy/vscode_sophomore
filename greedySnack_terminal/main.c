@@ -175,6 +175,14 @@ int game_end(Snack* snack)
 
 void game_start(Snack* snack)
 {
+	show_snack(snack);
+	COORD temp;
+	temp.X = WIDE / 2;
+	temp.Y = HIGH / 2 - 7;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), temp);
+	system("pause");
+	system("cls");
+	init_ui();
 	while(snack->body[0].x >= 0 && snack->body[0].y >= 0 && snack->body[0].x < WIDE && snack->body[0].y < HIGH)
 	{
 		show_snack(snack);
@@ -185,7 +193,7 @@ void game_start(Snack* snack)
 		{
 			break;
 		}
-		Sleep(10);
+		Sleep(60);
 	}
 }
 
@@ -212,7 +220,7 @@ int main()
 		init_snack(&snack);
 		init_ui();
 		init_food(&snack);
-
+		
 		game_start(&snack);
 
 		int ret = game_ui();
