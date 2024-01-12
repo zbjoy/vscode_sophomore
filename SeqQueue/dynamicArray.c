@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct dynamicArray
-{
-    void** pArr;
-    int m_Capacity;
-    int m_Size;
-}dynamicArray;
+#include "dynamicArray.h"
 
 dynamicArray* initArray()
 {
@@ -41,8 +32,7 @@ void insertArray(dynamicArray* arr, void* data, int pos)
 
     for(int i = arr->m_Size - 1; i >= pos; i--)
     {
-        //memcpy(arr->pArr[i+1], arr->pArr[i], sizeof(void*));   
-        //////////////////////////////////////////////////////////////////////////////////上面难道不是非法的方法吗,为什么还可以成功
+        // memcpy(arr->pArr[i+1], arr->pArr[i], sizeof(void*));
         arr->pArr[i+1] = arr->pArr[i];
     }
     //memcpy(arr->pArr[pos], data, sizeof(void*));
@@ -58,21 +48,45 @@ void dynamicArray_Print(dynamicArray* arr, void (*print)(void*))
     }
 }
 
+void removeArray(dynamicArray *arr, int pos)
+{
+    if(arr == NULL)
+    {
+        return;
+    }
+
+    if(arr->m_Size == 0)
+    {
+        return;
+    }
+
+    if(arr->m_Size <= pos)
+    {
+        pos = arr->m_Size - 1;
+    }
+
+    for(int i = pos; i < arr->m_Size - 1; i++)
+    {
+        arr->pArr[i] = arr->pArr[i+1];
+    }
+    arr->m_Size--;
+}
+
 void myPrint(void* data)
 {
     int* num = data;
     printf("%d ", *num);
 }
 
-int main()
-{
-    dynamicArray* arr = initArray();
-    int a = 2;
-    int b = 6;
-    insertArray(arr, &a, 0);
-    dynamicArray_Print(arr, myPrint);
-    printf("\n");
-    insertArray(arr, &b, 1);
-    dynamicArray_Print(arr, myPrint);
-    return 0;
-}
+// int main()
+// {
+//     dynamicArray* arr = initArray();
+//     int a = 2;
+//     int b = 6;
+//     insertArray(arr, &a, 0);
+//     dynamicArray_Print(arr, myPrint);
+//     printf("\n");
+//     insertArray(arr, &b, 1);
+//     dynamicArray_Print(arr, myPrint);
+//     return 0;
+// }
