@@ -4,13 +4,13 @@
 
 void test01()
 {
-    struct BinaryNode nodeA = {'A', NULL, NULL};
-    struct BinaryNode nodeB = {'B', NULL, NULL};
-    struct BinaryNode nodeC = {'C', NULL, NULL};
-    struct BinaryNode nodeD = {'D', NULL, NULL};
-    struct BinaryNode nodeE = {'E', NULL, NULL};
-    struct BinaryNode nodeF = {'F', NULL, NULL};
-    struct BinaryNode nodeG = {'G', NULL, NULL};
+    struct BinaryNode nodeA = {'A', NULL, NULL, 0};
+    struct BinaryNode nodeB = {'B', NULL, NULL, 0};
+    struct BinaryNode nodeC = {'C', NULL, NULL, 0};
+    struct BinaryNode nodeD = {'D', NULL, NULL, 0};
+    struct BinaryNode nodeE = {'E', NULL, NULL, 0};
+    struct BinaryNode nodeF = {'F', NULL, NULL, 0};
+    struct BinaryNode nodeG = {'G', NULL, NULL, 0};
 
     nodeA.lChild = &nodeB;
     nodeA.rChild = &nodeF;
@@ -20,6 +20,8 @@ void test01()
     nodeF.rChild = &nodeG;
 
     recursion(&nodeA);
+    printf("\n");
+    myRecursion(&nodeA);
 
     int num = 0;
     calculateLeafNum(&nodeA, &num);
@@ -31,11 +33,16 @@ void test01()
     struct BinaryNode* tree = copyTree(&nodeA);
     printf("\n");
     recursion(tree);
+    printf("\n");
+    myRecursion(tree);
 
     freeTree(tree);
     tree = NULL;
     recursion(tree);
+    //myRecursion(tree);
 }
+
+
 
 int main()
 {

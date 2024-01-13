@@ -54,6 +54,7 @@ struct BinaryNode *copyTree(struct BinaryNode *node)
     newTree->rChild = copyTree(node->rChild);
 
     newTree->data = node->data;
+    newTree->flag = 0;
     return newTree;
 }
 
@@ -69,4 +70,35 @@ void freeTree(struct BinaryNode* node)
 
     free(node);
     node = NULL;
+}
+
+void myRecursion(struct BinaryNode* node)
+{
+    SeqStack stack = init_SeqStack();
+    if(node == NULL)
+    {
+        return;
+    }
+    push_SeqStack(stack, node);
+    while(!isEmpty_SeqStack(stack))
+    {
+        struct BinaryNode* p = top_SeqStack(stack);
+        pop_SeqStack(stack);
+        if(p->flag == 0)
+        {
+            p->flag = 1;
+
+            if(p->rChild != NULL)
+            push_SeqStack(stack, p->rChild);
+
+            if(p->lChild != NULL)
+            push_SeqStack(stack, p->lChild);
+
+            push_SeqStack(stack, p);
+        }
+        else
+        {
+            printf("%c  ", p->data);
+        }
+    }
 }
