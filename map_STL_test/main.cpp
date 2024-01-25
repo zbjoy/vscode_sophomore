@@ -6,7 +6,7 @@
 using namespace std;
 
 class Maker;
-class makerFunc;
+struct makerFunc;
 void printSet(set<Maker, makerFunc>& s);
 
 class Maker
@@ -16,12 +16,12 @@ class Maker
 public:
     Maker(){};
     Maker(string tName, int tAge) : name(tName), age(tAge){};
-    string getName()
+    string getName() const
     {
         return name;
     }
 
-    int getAge()
+    int getAge() const
     {
         return age;
     }
@@ -36,12 +36,13 @@ ostream& operator<<(ostream& out, Maker& m)
     return out;
 }
 
-class makerFunc
+struct makerFunc
 {
-public:
-    bool operator()(Maker& m1, Maker& m2)
+    // bool operator()(Maker& m1, Maker& m2)
+    bool operator()(const Maker& m1, const Maker& m2)
     {
         return m1.getAge() > m2.getAge();
+        // m1.getName();
     }
 };
 
@@ -63,11 +64,11 @@ void test()
     set<Maker, makerFunc> s;
     makerFunc make;
     //make(Maker("aaa", 10), Maker("bbb", 20));
-    Maker m1("aaa", 10);
+    // const Maker m1("aaa", 10);
     Maker m2("bbb", 20);
-    make(m1, m2);
+    // make(m1, m2);
     //makerFunc(Maker("aaa", 10), Maker("bbb", 20));
-    //s.insert(m1);//Maker("aaa", 10)); // error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! insert失败
+    // s.insert(m1);//Maker("aaa", 10)); // error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! insert失败
     // s.insert(Maker("bbb", 20));
     // s.insert(Maker("ccc", 30));
     // s.insert(Maker("ddd", 40));
@@ -91,7 +92,7 @@ void test02()
 
 int main()
 {
-    //test();//err ?????????
-    test02();
+    test();//err ?????????
+    // test02();
     return 0;
 }
